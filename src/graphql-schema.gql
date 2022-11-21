@@ -265,6 +265,18 @@ type Package {
   """receiver Gender"""
   receiverGender: String
 
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
+
+  """package creation date"""
+  createdAt: DateTime
+
+  """package updation date"""
+  updatedAt: DateTime
+
   """worth"""
   worth: String
 
@@ -280,12 +292,20 @@ type Package {
   """description"""
   description: String
 
+  """package status"""
+  status: String
+
   """file"""
   file: String
 
   """user"""
   user: User!
 }
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
 
 type User {
   id: String!
@@ -301,6 +321,9 @@ type User {
 
   """refresh token"""
   refreshToken: String
+
+  """orderId"""
+  orderId: String
 
   """refresh token exp"""
   refreshTokenExp: String
@@ -404,6 +427,7 @@ type Query {
   getAllUsers: [User!]!
   findUser(id: String!): User!
   loginUser(userData: CreateUserInput!): User!
+  currentUser: User!
   findUserByName(userName: String!): User!
   findAllProfile: [Profile!]!
   profile(id: String!): Profile!
@@ -412,6 +436,7 @@ type Query {
   earnings: [Earning!]!
   earning(id: String!): Earning!
   package(id: String!): Package!
+  currentUserpackage: Package!
   wallet(id: Int!): Wallet!
   referral(id: Int!): Referral!
   notifications: [Notification!]!
@@ -466,6 +491,9 @@ input CreateUserInput {
 
   """registration date"""
   createdAt: String
+
+  """user status"""
+  status: String
 }
 
 input CreateChatInput {
@@ -557,108 +585,69 @@ input UpdateUserInput {
 
   """registration date"""
   createdAt: String
-  id: String!
 
   """user status"""
   status: String
+  id: String!
 }
 
 input CreateProfileInput {
-  """first name"""
+  """client gender"""
+  gender: String
+
+  """phone number"""
+  phoneNumber: String
+
+  """profile image"""
+  profileImage: String
+
+  """client firstname"""
   firstName: String
 
-  """last name"""
+  """client lastname"""
   lastName: String
 
-  """All active orders"""
-  activeOrders: String
-
-  """All completed orders"""
-  completedOrder: Float
-
-  """All canceled orders"""
-  canceledOrder: Float
-
-  """User specialization"""
-  specialization: String
-
-  """about User"""
-  description: String
-
-  """description mark down"""
-  descriptionMarkDown: String
-
-  """file Id"""
-  fileId: String
-
-  """User achievement"""
-  achievement: String
-
-  """User rank"""
-  rank: String
-
-  """User language"""
-  language: String
+  """user id"""
+  userId: String
 
   """User status"""
   onlineStatus: Boolean
 
-  """user registration date"""
-  createdAt: String
+  """User role"""
+  role: String
 
-  """user id"""
-  userId: String
+  """User language"""
+  language: String
 }
 
 input UpdateProfileInput {
-  """first name"""
+  """client gender"""
+  gender: String
+
+  """phone number"""
+  phoneNumber: String
+
+  """profile image"""
+  profileImage: String
+
+  """client firstname"""
   firstName: String
 
-  """last name"""
+  """client lastname"""
   lastName: String
 
-  """All active orders"""
-  activeOrders: String
-
-  """All completed orders"""
-  completedOrder: Float
-
-  """All canceled orders"""
-  canceledOrder: Float
-
-  """User specialization"""
-  specialization: String
-
-  """about User"""
-  description: String
-
-  """description mark down"""
-  descriptionMarkDown: String
-
-  """file Id"""
-  fileId: String
-
-  """User achievement"""
-  achievement: String
-
-  """User rank"""
-  rank: String
-
-  """User language"""
-  language: String
+  """user id"""
+  userId: String
 
   """User status"""
   onlineStatus: Boolean
 
-  """user registration date"""
-  createdAt: String
-
-  """user id"""
-  userId: String
-  id: String!
-
-  """user role"""
+  """User role"""
   role: String
+
+  """User language"""
+  language: String
+  id: String!
 }
 
 input CreateEarningInput {
@@ -756,6 +745,15 @@ input CreatePackageInput {
 
   """description"""
   description: String
+
+  """package status"""
+  status: String
+
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
 }
 
 input UpdatePackageInput {
@@ -800,6 +798,15 @@ input UpdatePackageInput {
 
   """description"""
   description: String
+
+  """package status"""
+  status: String
+
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
   id: String!
 
   """file"""

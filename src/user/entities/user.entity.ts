@@ -36,7 +36,7 @@ export class User {
   userName: string;
 
   @Field({ description: 'client email', nullable: true })
-  @Column({ nullable: true })
+  @Column({ nullable: true, unique: true })
   email: string;
 
   @Field({ description: 'password', nullable: true })
@@ -46,6 +46,10 @@ export class User {
   @Field({ description: 'refresh token', nullable: true })
   @Column({ nullable: true, name: 'refreshtoken' })
   refreshToken: string;
+
+  @Field({ description: 'orderId', nullable: true })
+  @Column({ nullable: true, name: 'orderId' })
+  orderId: string;
 
   @Field({ description: 'refresh token exp', nullable: true })
   @Column({ type: 'date', nullable: true, name: 'refreshtokenexp' })

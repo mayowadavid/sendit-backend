@@ -31,6 +31,12 @@ export class UserResolver {
     return this.userService.loginUser(createUserInput);
   }
 
+  @Query(() => User, { name: 'currentUser' })
+  @UseGuards(GqlAuthGuard)
+  currentUser(@CurrentUser() user) {
+    return this.userService.currentUser(user);
+  }
+
   @Query(() => User, { name: 'findUserByName' })
   findUserByName(@Args('userName') userName: string) {
     return this.userService.findUserByName(userName);

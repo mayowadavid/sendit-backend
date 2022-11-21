@@ -8,7 +8,16 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
+
+export enum packageStatus {
+  INCOMPLETE = 'incomplete',
+  PENDING = 'pending',
+  INTRANSIT = 'intransit',
+  DELIVERED = 'delivered',
+}
 
 @ObjectType()
 @Entity()
@@ -53,6 +62,22 @@ export class Package {
   @Column({ nullable: true })
   receiverGender: string;
 
+  @Field({ description: 'pick up location', nullable: true })
+  @Column({ nullable: true })
+  pickUp: string;
+
+  @Field({ description: 'package destination', nullable: true })
+  @Column({ nullable: true })
+  destination: string;
+
+  @Field({ description: 'package creation date', nullable: true })
+  @CreateDateColumn({ type: 'timestamp', precision: 3 })
+  createdAt: Date;
+
+  @Field({ description: 'package updation date', nullable: true })
+  @UpdateDateColumn({ type: 'timestamp', precision: 3 })
+  updatedAt: Date;
+
   @Field({ description: 'worth', nullable: true })
   @Column({ nullable: true })
   worth: string;
@@ -72,6 +97,15 @@ export class Package {
   @Field({ description: 'description', nullable: true })
   @Column({ nullable: true })
   description: string;
+
+  @Field({ description: 'package status', nullable: true })
+  @Column({
+    nullable: true,
+    type: 'enum',
+    enum: packageStatus,
+    default: 'incomplete',
+  })
+  status: packageStatus;
 
   @Field({ description: 'file', nullable: true })
   @Column({ nullable: true })

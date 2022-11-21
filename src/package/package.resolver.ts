@@ -1,4 +1,4 @@
-import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
 import { PackageService } from './package.service';
 import { Package } from './entities/package.entity';
 import { CreatePackageInput } from './dto/create-package.input';
@@ -29,6 +29,12 @@ export class PackageResolver {
   @Query(() => Package, { name: 'package' })
   findOne(@Args('id') id: string) {
     return this.packageService.findOne(id);
+  }
+
+  @Query(() => Package, { name: 'currentUserpackage' })
+  @UseGuards(GqlAuthGuard)
+  currentUserPackage(@CurrentUser() user) {
+    return this.packageService.currentUserPackage(user);
   }
 
   @Mutation(() => Package)

@@ -79,9 +79,13 @@ export class ProfileService {
         .then((result) => (Images = result));
     }
     const { profileId } = request.body;
-    const profile = await this.profileRepository.findOne(profileId);
+    const profile = await this.profileRepository.findOne({
+      relations: ['file', 'user'],
+      where: { id: profileId },
+    });
     profile.file = Images;
     profile.user = user;
+    console.log(profile);
     const data = await this.profileRepository.save(profile);
     return response.status(200).json(data);
   }

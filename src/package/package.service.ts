@@ -5,7 +5,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { Package } from './entities/package.entity';
 import { FilesService } from 'src/files/files.service';
-
+import { packageStatus } from './entities/package.entity';
 @Injectable()
 export class PackageService {
   constructor(
@@ -30,6 +30,17 @@ export class PackageService {
       relations: ['user'],
       where: {
         user,
+      },
+    });
+    return result;
+  }
+
+  async currentUserPackage(user): Promise<Package> {
+    const result = await this.packageRepository.findOne({
+      relations: ['user'],
+      where: {
+        user,
+        status: packageStatus.INCOMPLETE,
       },
     });
     return result;

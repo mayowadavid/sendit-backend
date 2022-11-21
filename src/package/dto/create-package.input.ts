@@ -1,4 +1,5 @@
 import { InputType, Int, Field } from '@nestjs/graphql';
+import { packageStatus } from '../entities/package.entity';
 
 @InputType()
 export class CreatePackageInput {
@@ -43,4 +44,13 @@ export class CreatePackageInput {
 
   @Field({ description: 'description', nullable: true })
   description: string;
+
+  @Field({ description: 'package status', nullable: true })
+  status: packageStatus;
+
+  @Field({ description: 'pick up location', nullable: true })
+  pickUp: string;
+
+  @Field({ description: 'package destination', nullable: true })
+  destination: string;
 }

@@ -28,13 +28,20 @@ export class UserService {
   ) {}
 
   async create(userInput: CreateUserInput): Promise<any> {
-    const email = userInput.email;
+    const { email, userName } = userInput;
+
+    if (email?.length == 0 || email == null) {
+      throw new BadRequestException(`email can't be empty`);
+    } else if (userName?.length == 0 || userName == null) {
+      throw new BadRequestException(`user name can't be empty`);
+    }
+
     const user = await this.userRepository.findOne({
       where: {
         email,
       },
     });
-    const userName = userInput.userName;
+
     const uniqueName = await this.userRepository.findOne({
       where: { userName },
     });
@@ -94,37 +101,42 @@ export class UserService {
     const token = await this.jwtService.signAsync(payload);
     const userDataToUpdate = {
       refreshToken: token,
-      refreshTokenExp: moment().day(1).format('YYYY/MM/DD'),
+      refreshTokenExp: moment().day(10).format('YYYY/MM/DD'),
     };
     await this.userRepository.update(userId, userDataToUpdate);
     return userDataToUpdate;
   }
 
   async loginUser(userInput: CreateUserInput): Promise<any> {
-    const user = await this.userRepository.findOne({
-      relations: ['profile', 'earning'],
-      where: {
-        email: userInput.email,
-      },
-    });
+    const { email, userName, password } = userInput;
 
-    const uniqueName = await this.userRepository.findOne({
-      where: {
-        userName: userInput.userName,
-      },
-    });
+    let user;
+    if (email !== null && email !== undefined && email.length > 0) {
+      user = await this.userRepository.findOne({
+        relations: ['profile', 'earning'],
+        where: {
+          email,
+        },
+      });
+    } else if (
+      userName !== null &&
+      userName !== undefined &&
+      userName.length > 0
+    ) {
+      user = await this.userRepository.findOne({
+        relations: ['profile', 'notification', 'earning'],
+        where: {
+          userName,
+        },
+      });
+    } else {
+      throw new BadRequestException(`username or email can't be empty`);
+    }
 
     if (user == null) {
-      throw new BadRequestException('user not found');
-    } else if (user !== undefined && user.email !== userInput.email) {
-      throw new BadRequestException('invalid email');
-    } else if (uniqueName !== undefined && userInput.userName !== undefined) {
-      throw new BadRequestException('invalid user name');
+      throw new BadRequestException('wrong username or email');
     }
-    const isValidPassword = await bcrypt.compare(
-      userInput.password,
-      user.password,
-    );
+    const isValidPassword = await bcrypt.compare(password, user.password);
     if (!isValidPassword) {
       throw new BadRequestException('invalid password');
     }
@@ -135,7 +147,7 @@ export class UserService {
       role,
     );
 
-    const result = { ...user, refreshTokenExp, refreshToken };
+    const result = { ...user, refreshToken, refreshTokenExp };
 
     return result;
   }
@@ -145,6 +157,16 @@ export class UserService {
       relations: ['profile', 'notification', 'earning'],
       where: {
         userName,
+      },
+    });
+  }
+
+  currentUser(user): Promise<User> {
+    const { email } = user;
+    return this.userRepository.findOne({
+      relations: ['profile', 'profile.file', 'notification', 'earning'],
+      where: {
+        email,
       },
     });
   }
