@@ -39,6 +39,9 @@ export class CreatePackageInput {
   @Field({ description: 'measurement', nullable: true })
   measurement: string;
 
+  @Field({ description: 'size', nullable: true })
+  size: string;
+
   @Field({ description: 'service Fee', nullable: true })
   serviceFee: string;
 

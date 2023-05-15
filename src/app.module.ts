@@ -24,6 +24,7 @@ import { ComplaintsModule } from './complaints/complaints.module';
 import { ProfileModule } from './profile/profile.module';
 import { EarningsModule } from './earnings/earnings.module';
 import { PusherService } from './pusher/pusher.service';
+import { SubCategoryModule } from './sub-category/sub-category.module';
 
 @Module({
   imports: [
@@ -63,6 +64,7 @@ import { PusherService } from './pusher/pusher.service';
     ProfileModule,
     EarningsModule,
     NotificationModule,
+    SubCategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService, PusherService],

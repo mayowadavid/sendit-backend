@@ -109,11 +109,21 @@ export class PackageService {
     id: string,
     updatePackageInput: UpdatePackageInput,
   ): Promise<Package> {
-    const packages: Package = await this.packageRepository.create(
-      updatePackageInput,
-    );
-    packages.id = id;
-    return this.packageRepository.save(packages);
+    const packages: Package = await this.packageRepository.findOne({
+      where: { id },
+    });
+
+    const clean = (obj) => {
+      for (const prop in obj) {
+        if (obj[prop] === null || obj[prop] === undefined) {
+          delete obj[prop];
+        }
+      }
+      return obj;
+    };
+    const value = clean(updatePackageInput);
+    const result = { ...packages, ...value };
+    return this.packageRepository.save(result);
   }
 
   async remove(id: string) {

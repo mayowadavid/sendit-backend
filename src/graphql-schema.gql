@@ -33,6 +33,30 @@ type Earning {
   user: User!
 }
 
+type SubCategory {
+  id: String!
+
+  """sub category name"""
+  name: String
+
+  """creation date"""
+  createdAt: DateTime
+
+  """updation date"""
+  updatedAt: DateTime
+
+  """sub category id"""
+  categoryId: String
+
+  """subCategory"""
+  category: Category
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
 type Category {
   id: String!
 
@@ -52,7 +76,10 @@ type Category {
   blogId: String
 
   """blog category"""
-  blog: Blog
+  blog: [Blog!]
+
+  """sub category"""
+  subCategory: [SubCategory!]
 
   """category image"""
   file: File
@@ -86,9 +113,6 @@ type Blog {
   """blog title"""
   name: String
 
-  """blog date"""
-  createdAt: String
-
   """blog content"""
   description: String
 
@@ -97,6 +121,9 @@ type Blog {
 
   """blog status"""
   status: String
+
+  """blog type"""
+  type: String
 
   """blog slug"""
   slug: String
@@ -117,13 +144,19 @@ type Blog {
   user: User
 
   """blog category"""
-  category: [Category!]
+  category: Category
 
   """blog image"""
   file: File
 
   """blog comment"""
   comments: [Comment!]
+
+  """blog date"""
+  createdAt: DateTime
+
+  """blog update"""
+  updatedAt: DateTime
 }
 
 type File {
@@ -286,6 +319,9 @@ type Package {
   """measurement"""
   measurement: String
 
+  """size"""
+  size: String
+
   """service Fee"""
   serviceFee: String
 
@@ -301,11 +337,6 @@ type Package {
   """user"""
   user: User!
 }
-
-"""
-A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
-"""
-scalar DateTime
 
 type User {
   id: String!
@@ -448,17 +479,21 @@ type Query {
   findChatByExistence(createChat: CreateChatInput!): Chat!
   getAllmessages: [Message!]!
   message(id: String!): Message!
-  blog(id: String!): Blog!
+  allBlog: [Blog!]!
   findBlogByUser: [Blog!]!
+  blog(id: String!): Blog!
+  findBlogByName(name: String!): Blog!
   files: [File!]!
   file(id: String!): File!
   securityQuestion(id: Int!): SecurityQuestion!
   comments: [Comment!]!
   comment(id: String!): Comment!
-  categories: [Category!]!
+  allCategories: [Category!]!
   category(id: String!): Category!
   complaints: [Complaint!]!
   complaint(id: String!): Complaint!
+  allSubCategory: [SubCategory!]!
+  subCategory(id: String!): SubCategory!
 }
 
 input CreateUserInput {
@@ -553,6 +588,9 @@ type Mutation {
   createComplaint(createComplaintInput: CreateComplaintInput!): Complaint!
   updateComplaint(updateComplaintInput: UpdateComplaintInput!): Complaint!
   removeComplaint(id: String!): Complaint!
+  createSubCategory(createSubCategoryInput: CreateSubCategoryInput!): SubCategory!
+  updateSubCategory(updateSubCategoryInput: UpdateSubCategoryInput!): SubCategory!
+  removeSubCategory(id: String!): SubCategory!
 }
 
 input UpdateUserInput {
@@ -740,6 +778,9 @@ input CreatePackageInput {
   """measurement"""
   measurement: String
 
+  """size"""
+  size: String
+
   """service Fee"""
   serviceFee: String
 
@@ -792,6 +833,9 @@ input UpdatePackageInput {
 
   """measurement"""
   measurement: String
+
+  """size"""
+  size: String
 
   """service Fee"""
   serviceFee: String
@@ -927,9 +971,6 @@ input CreateBlogInput {
   """blog title"""
   name: String
 
-  """blog date"""
-  createdAt: String
-
   """blog content"""
   description: String
 
@@ -941,6 +982,9 @@ input CreateBlogInput {
 
   """blog slug"""
   slug: String
+
+  """blog type"""
+  type: String
 
   """blog category id"""
   categoryId: String
@@ -959,9 +1003,6 @@ input UpdateBlogInput {
   """blog title"""
   name: String
 
-  """blog date"""
-  createdAt: String
-
   """blog content"""
   description: String
 
@@ -973,6 +1014,9 @@ input UpdateBlogInput {
 
   """blog slug"""
   slug: String
+
+  """blog type"""
+  type: String
 
   """blog file id"""
   categoryId: String
@@ -1126,4 +1170,21 @@ input UpdateComplaintInput {
   id: String!
   user: String!
   description: String!
+}
+
+input CreateSubCategoryInput {
+  """sub category name"""
+  name: String
+
+  """category id"""
+  categoryId: String
+}
+
+input UpdateSubCategoryInput {
+  """sub category name"""
+  name: String
+
+  """category id"""
+  categoryId: String
+  id: String!
 }

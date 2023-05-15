@@ -21,8 +21,8 @@ export class BlogResolver {
     return this.blogService.create(user, createBlogInput);
   }
 
-  @Query(() => [Blog], { name: 'blog' })
-  findAll() {
+  @Query(() => [Blog], { name: 'allBlog' })
+  findAllBlog() {
     return this.blogService.findAll();
   }
 
@@ -38,6 +38,11 @@ export class BlogResolver {
   @Query(() => Blog, { name: 'blog' })
   findOne(@Args('id') id: string) {
     return this.blogService.findOne(id);
+  }
+
+  @Query(() => Blog, { name: 'findBlogByName' })
+  findBlogByName(@Args('name') name: string) {
+    return this.blogService.findBlogByName(name);
   }
 
   @Mutation(() => Blog)

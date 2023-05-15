@@ -7,6 +7,7 @@ import {
   Column,
   OneToMany,
   ManyToOne,
+  JoinColumn,
 } from 'typeorm';
 
 @ObjectType()
@@ -25,10 +26,12 @@ export class Chat {
   receiverId: string;
 
   @ManyToOne(() => User, (user) => user.sender)
+  @JoinColumn()
   @Field(() => User, { description: 'user sender chat', nullable: true })
   sender: User;
 
   @ManyToOne(() => User, (user) => user.receiver)
+  @JoinColumn()
   @Field(() => User, { description: 'user receiver chat', nullable: true })
   receiver: User;
 

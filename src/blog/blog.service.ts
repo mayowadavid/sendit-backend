@@ -21,7 +21,13 @@ export class BlogService {
 
   findAll(): Promise<Blog[]> {
     return this.blogRepository.find({
-      relations: ['file', 'çomments'],
+      relations: [
+        'file',
+        'category',
+        'user',
+        'user.profile',
+        'user.profile.file',
+      ],
     });
   }
 
@@ -37,6 +43,16 @@ export class BlogService {
       ],
       where: {
         user,
+      },
+    });
+    return result;
+  }
+
+  async findBlogByName(name: string): Promise<Blog> {
+    const result = await this.blogRepository.findOne({
+      relations: ['file', 'category', 'user'],
+      where: {
+        name,
       },
     });
     return result;
@@ -102,9 +118,22 @@ export class BlogService {
   }
 
   async update(id: string, updateBlogInput: UpdateBlogInput): Promise<Blog> {
-    const blog: Blog = await this.blogRepository.create(updateBlogInput);
-    blog.id = id;
-    return this.blogRepository.save(blog);
+    const blog: Blog = await this.blogRepository.findOne({
+      where: {
+        id,
+      },
+    });
+    const clean = (obj) => {
+      for (const prop in obj) {
+        if (obj[prop] === null || obj[prop] === undefined) {
+          delete obj[prop];
+        }
+      }
+      return obj;
+    };
+    const value = clean(updateBlogInput);
+    const result = { ...blog, ...value };
+    return this.blogRepository.save(result);
   }
 
   async remove(id: string) {

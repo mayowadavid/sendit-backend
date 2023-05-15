@@ -1,13 +1,10 @@
 import { InputType, Field } from '@nestjs/graphql';
-import { BlogStatus } from '../entities/blog.entity';
+import { BlogStatus, BlogType } from '../entities/blog.entity';
 
 @InputType()
 export class CreateBlogInput {
   @Field({ description: 'blog title', nullable: true })
   name: string;
-
-  @Field({ description: 'blog date', nullable: true })
-  createdAt: string;
 
   @Field({ description: 'blog content', nullable: true })
   description: string;
@@ -20,6 +17,9 @@ export class CreateBlogInput {
 
   @Field({ description: 'blog slug', nullable: true })
   slug: string;
+
+  @Field({ description: 'blog type', nullable: true })
+  type: BlogType;
 
   @Field({ description: 'blog category id', nullable: true })
   categoryId: string;

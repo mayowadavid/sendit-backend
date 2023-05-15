@@ -21,24 +21,14 @@ export class CategoriesService {
 
   findAll(): Promise<Category[]> {
     return this.categoryRepository.find({
-      relations: [
-        'file',
-        'subCategory',
-        'subCategory.gig',
-        'gig',
-        'gig.gigGallery',
-        'gig.gigGallery.file',
-        'gig.user',
-        'gig.user.profile',
-        'gig.user.profile.file',
-      ],
+      relations: ['file', 'blog', 'subCategory'],
     });
   }
 
   findOne(id: string): Promise<Category> {
     return this.categoryRepository.findOne({
       where: { id },
-      relations: ['file', 'subCategory'],
+      relations: ['file', 'blog', 'subCategory'],
     });
   }
 

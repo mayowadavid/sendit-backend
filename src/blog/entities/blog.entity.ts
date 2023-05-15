@@ -11,12 +11,19 @@ import {
   OneToMany,
   OneToOne,
   JoinColumn,
+  CreateDateColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 
 export enum BlogStatus {
   DRAFT = 'draft',
   PAUSED = 'paused',
   ACTIVE = 'active',
+}
+
+export enum BlogType {
+  POST = 'post',
+  PAGE = 'page',
 }
 
 @ObjectType()
@@ -29,10 +36,6 @@ export class Blog {
   @Field({ description: 'blog title', nullable: true })
   @Column({ nullable: true })
   name: string;
-
-  @Field({ description: 'blog date', nullable: true })
-  @Column({ nullable: true })
-  createdAt: string;
 
   @Field({ description: 'blog content', nullable: true })
   @Column({ nullable: true })
@@ -50,6 +53,15 @@ export class Blog {
     default: 'draft',
   })
   status: BlogStatus;
+
+  @Field({ description: 'blog type', nullable: true })
+  @Column({
+    nullable: true,
+    type: 'enum',
+    enum: BlogType,
+    default: 'post',
+  })
+  type: BlogType;
 
   @Field({ description: 'blog slug', nullable: true })
   @Column({ nullable: true })
@@ -77,11 +89,12 @@ export class Blog {
   @Field(() => User, { description: 'blog category', nullable: true })
   user: User;
 
-  @OneToMany(() => Category, (category) => category.blog, {
+  @ManyToOne(() => Category, (category) => category.blog, {
     cascade: false,
   })
-  @Field(() => [Category], { description: 'blog category', nullable: true })
-  category: Category[];
+  @JoinColumn()
+  @Field(() => Category, { description: 'blog category', nullable: true })
+  category: Category;
 
   @OneToOne(() => File, (file) => file.blog, {
     cascade: false,
@@ -95,4 +108,12 @@ export class Blog {
   })
   @Field(() => [Comment], { description: 'blog comment', nullable: true })
   comments: Comment[];
+
+  @Field({ description: 'blog date', nullable: true })
+  @CreateDateColumn({ type: 'timestamp', precision: 3 })
+  createdAt: Date;
+
+  @Field({ description: 'blog update', nullable: true })
+  @UpdateDateColumn({ type: 'timestamp', precision: 3 })
+  updatedAt: Date;
 }

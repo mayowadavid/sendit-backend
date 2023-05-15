@@ -90,6 +90,10 @@ export class Package {
   @Column({ nullable: true })
   measurement: string;
 
+  @Field({ description: 'size', nullable: true })
+  @Column({ nullable: true })
+  size: string;
+
   @Field({ description: 'service Fee', nullable: true })
   @Column({ nullable: true })
   serviceFee: string;

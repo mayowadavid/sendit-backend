@@ -1,6 +1,7 @@
 import { ObjectType, Field } from '@nestjs/graphql';
 import { Blog } from 'src/blog/entities/blog.entity';
 import { File } from 'src/files/entities/file.entity';
+import { SubCategory } from 'src/sub-category/entities/sub-category.entity';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -49,9 +50,13 @@ export class Category {
   @Column({ nullable: true })
   blogId: string;
 
-  @ManyToOne(() => Blog, (blog) => blog.category)
-  @Field(() => Blog, { description: 'blog category', nullable: true })
-  blog: Blog;
+  @OneToMany(() => Blog, (blog) => blog.category)
+  @Field(() => [Blog], { description: 'blog category', nullable: true })
+  blog: Blog[];
+
+  @OneToMany(() => SubCategory, (subCategory) => subCategory.category)
+  @Field(() => [SubCategory], { description: 'sub category', nullable: true })
+  subCategory: SubCategory[];
 
   @OneToOne(() => File, (file) => file.category)
   @JoinColumn()
