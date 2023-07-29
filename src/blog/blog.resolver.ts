@@ -1,4 +1,11 @@
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import {
+  Resolver,
+  Query,
+  Mutation,
+  Args,
+  ObjectType,
+  Field,
+} from '@nestjs/graphql';
 import { BlogService } from './blog.service';
 import { Blog } from './entities/blog.entity';
 import { CreateBlogInput } from './dto/create-blog.input';
@@ -26,6 +33,34 @@ export class BlogResolver {
     return this.blogService.findAll();
   }
 
+  @Query(() => BlogPagePaginationResult, { name: 'allBlogPage' })
+  async findAllBlogPage(
+    @Args('pagination', { nullable: true }) createBlogInput: CreateBlogInput,
+  ) {
+    const { page, limit } = createBlogInput;
+    const offset = (page - 1) * limit;
+    const [pages, total] = await this.blogService.findByPage(offset, limit);
+    const hasNextPage = offset + limit < total;
+    return {
+      pages,
+      hasNextPage,
+    };
+  }
+
+  @Query(() => BlogPostPaginationResult, { name: 'allBlogPost' })
+  async findAllBlogPost(
+    @Args('pagination', { nullable: true }) createBlogInput: CreateBlogInput,
+  ) {
+    const { page, limit } = createBlogInput;
+    const offset = (page - 1) * limit;
+    const [posts, total] = await this.blogService.findByPost(offset, limit);
+    const hasNextPage = offset + limit < total;
+    return {
+      posts,
+      hasNextPage,
+    };
+  }
+
   @Query(() => [Blog], { name: 'findBlogByUser' })
   @UseGuards(GqlAuthGuard)
   findBlogByUser(
@@ -40,9 +75,9 @@ export class BlogResolver {
     return this.blogService.findOne(id);
   }
 
-  @Query(() => Blog, { name: 'findBlogByName' })
-  findBlogByName(@Args('name') name: string) {
-    return this.blogService.findBlogByName(name);
+  @Query(() => Blog, { name: 'findBlogBySlug' })
+  findBlogByName(@Args('name') slug: string) {
+    return this.blogService.findBlogBySlug(slug);
   }
 
   @Mutation(() => Blog)
@@ -54,4 +89,22 @@ export class BlogResolver {
   removeBlog(@Args('id') id: string) {
     return this.blogService.remove(id);
   }
+}
+
+@ObjectType()
+export class BlogPostPaginationResult {
+  @Field(() => [Blog])
+  posts: Blog[];
+
+  @Field(() => Boolean)
+  hasNextPage: boolean;
+}
+
+@ObjectType()
+export class BlogPagePaginationResult {
+  @Field(() => [Blog])
+  pages: Blog[];
+
+  @Field(() => Boolean)
+  hasNextPage: boolean;
 }

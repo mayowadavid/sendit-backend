@@ -1,8 +1,9 @@
-import { ObjectType, Field } from '@nestjs/graphql';
+import { ObjectType, Field, Int } from '@nestjs/graphql';
 import { File } from 'src/files/entities/file.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Category } from 'src/categories/entities/category.entity';
 import { Comment } from 'src/comments/entities/comment.entity';
+import { IsOptional, IsPositive } from 'class-validator';
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -12,7 +13,6 @@ import {
   OneToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 export enum BlogStatus {
@@ -67,6 +67,14 @@ export class Blog {
   @Column({ nullable: true })
   slug: string;
 
+  @Field(() => Int, { description: 'page', defaultValue: 1, nullable: true })
+  @Column({ nullable: true })
+  page: number;
+
+  @Field(() => Int, { description: 'page', defaultValue: 10, nullable: true })
+  @Column({ nullable: true })
+  limit: number;
+
   @Field({ description: 'blog category id', nullable: true })
   @Column({ nullable: true })
   categoryId: string;
@@ -103,9 +111,10 @@ export class Blog {
   @Field(() => File, { description: 'blog image', nullable: true })
   file: File;
 
-  @OneToMany(() => Comment, (comment) => comment.blog, {
+  @OneToMany(() => Comment, (comments) => comments.blog, {
     onDelete: 'CASCADE',
   })
+  @JoinColumn()
   @Field(() => [Comment], { description: 'blog comment', nullable: true })
   comments: Comment[];
 
@@ -114,6 +123,11 @@ export class Blog {
   createdAt: Date;
 
   @Field({ description: 'blog update', nullable: true })
-  @UpdateDateColumn({ type: 'timestamp', precision: 3 })
+  @Column({
+    type: 'timestamp',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
+  })
   updatedAt: Date;
 }

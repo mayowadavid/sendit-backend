@@ -9,7 +9,6 @@ import {
   OneToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 export enum packageStatus {
@@ -75,7 +74,12 @@ export class Package {
   createdAt: Date;
 
   @Field({ description: 'package updation date', nullable: true })
-  @UpdateDateColumn({ type: 'timestamp', precision: 3 })
+  @Column({
+    type: 'timestamp',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
+  })
   updatedAt: Date;
 
   @Field({ description: 'worth', nullable: true })

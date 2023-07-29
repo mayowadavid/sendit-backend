@@ -1,5 +1,5 @@
 import { CreateBlogInput } from './create-blog.input';
-import { InputType, Field, PartialType } from '@nestjs/graphql';
+import { InputType, Field, PartialType, Int } from '@nestjs/graphql';
 import { BlogStatus, BlogType } from '../entities/blog.entity';
 
 @InputType()
@@ -21,6 +21,12 @@ export class UpdateBlogInput extends PartialType(CreateBlogInput) {
 
   @Field({ description: 'blog slug', nullable: true })
   slug: string;
+
+  @Field(() => Int, { description: 'page', defaultValue: 1, nullable: true })
+  page: number;
+
+  @Field(() => Int, { description: 'page', defaultValue: 10, nullable: true })
+  limit: number;
 
   @Field({ description: 'blog type', nullable: true })
   type: BlogType;

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBlogInput } from './dto/create-blog.input';
 import { UpdateBlogInput } from './dto/update-blog.input';
-import { Blog } from './entities/blog.entity';
+import { Blog, BlogType } from './entities/blog.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FilesService } from 'src/files/files.service';
@@ -25,10 +25,52 @@ export class BlogService {
         'file',
         'category',
         'user',
+        'comments',
+        'comments.blog',
         'user.profile',
         'user.profile.file',
       ],
     });
+  }
+
+  async findByPost(offset: number, limit: number): Promise<[Blog[], number]> {
+    const [posts, total] = await this.blogRepository.findAndCount({
+      where: { type: BlogType.POST },
+      relations: [
+        'file',
+        'category',
+        'user',
+        'user.profile',
+        'user.profile.file',
+        'comments',
+        'comments.blog',
+      ],
+      skip: offset,
+      take: limit,
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return [posts, total];
+  }
+
+  async findByPage(offset: number, limit: number): Promise<[Blog[], number]> {
+    const [pages, total] = await this.blogRepository.findAndCount({
+      where: { type: BlogType.PAGE },
+      relations: [
+        'file',
+        'category',
+        'user',
+        'user.profile',
+        'user.profile.file',
+      ],
+      skip: offset,
+      take: limit,
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return [pages, total];
   }
 
   async findBlogByUser(user): Promise<Blog[]> {
@@ -48,11 +90,18 @@ export class BlogService {
     return result;
   }
 
-  async findBlogByName(name: string): Promise<Blog> {
+  async findBlogBySlug(slug: string): Promise<Blog> {
     const result = await this.blogRepository.findOne({
-      relations: ['file', 'category', 'user'],
+      relations: [
+        'file',
+        'category',
+        'user',
+        'comments',
+        'comments.blog',
+        'comments.child',
+      ],
       where: {
-        name,
+        slug,
       },
     });
     return result;

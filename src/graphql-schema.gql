@@ -91,8 +91,17 @@ type Comment {
   """comment description"""
   description: String
 
+  """comment name"""
+  name: String
+
+  """comment email"""
+  email: String
+
   """comment date"""
-  createdAt: String
+  createdAt: DateTime
+
+  """comment update"""
+  updatedAt: DateTime
 
   """blog comment"""
   blogId: String
@@ -100,11 +109,20 @@ type Comment {
   """userId comment"""
   userId: String
 
+  """parentId comment"""
+  parentId: String
+
   """user comment"""
   user: User
 
   """blog files"""
-  blog: Blog!
+  blog: Blog
+
+  """child comment"""
+  child: [Comment!]
+
+  """parent comment"""
+  parent: Comment!
 }
 
 type Blog {
@@ -127,6 +145,12 @@ type Blog {
 
   """blog slug"""
   slug: String
+
+  """page"""
+  page: Int
+
+  """page"""
+  limit: Int
 
   """blog category id"""
   categoryId: String
@@ -441,6 +465,16 @@ type Referral {
   refferedUser: String
 }
 
+type BlogPostPaginationResult {
+  posts: [Blog!]!
+  hasNextPage: Boolean!
+}
+
+type BlogPagePaginationResult {
+  pages: [Blog!]!
+  hasNextPage: Boolean!
+}
+
 type SecurityQuestion {
   id: String!
 
@@ -480,9 +514,11 @@ type Query {
   getAllmessages: [Message!]!
   message(id: String!): Message!
   allBlog: [Blog!]!
+  allBlogPage(pagination: CreateBlogInput): BlogPagePaginationResult!
+  allBlogPost(pagination: CreateBlogInput): BlogPostPaginationResult!
   findBlogByUser: [Blog!]!
   blog(id: String!): Blog!
-  findBlogByName(name: String!): Blog!
+  findBlogBySlug(name: String!): Blog!
   files: [File!]!
   file(id: String!): File!
   securityQuestion(id: Int!): SecurityQuestion!
@@ -540,6 +576,44 @@ input CreateChatInput {
 
   """chat receiver id"""
   receiverId: String
+}
+
+input CreateBlogInput {
+  """blog title"""
+  name: String
+
+  """blog content"""
+  description: String
+
+  """blog content mark down"""
+  descriptionMarkDown: String
+
+  """blog status"""
+  status: String
+
+  """blog slug"""
+  slug: String
+
+  """page"""
+  page: Int = 1
+
+  """page"""
+  limit: Int = 10
+
+  """blog type"""
+  type: String
+
+  """blog category id"""
+  categoryId: String
+
+  """blog file id"""
+  fileId: String
+
+  """blog comment id"""
+  commentId: String
+
+  """blog user id"""
+  userId: String
 }
 
 type Mutation {
@@ -967,38 +1041,6 @@ input UpdateMessageInput {
   id: String!
 }
 
-input CreateBlogInput {
-  """blog title"""
-  name: String
-
-  """blog content"""
-  description: String
-
-  """blog content mark down"""
-  descriptionMarkDown: String
-
-  """blog status"""
-  status: String
-
-  """blog slug"""
-  slug: String
-
-  """blog type"""
-  type: String
-
-  """blog category id"""
-  categoryId: String
-
-  """blog file id"""
-  fileId: String
-
-  """blog comment id"""
-  commentId: String
-
-  """blog user id"""
-  userId: String
-}
-
 input UpdateBlogInput {
   """blog title"""
   name: String
@@ -1014,6 +1056,12 @@ input UpdateBlogInput {
 
   """blog slug"""
   slug: String
+
+  """page"""
+  page: Int = 1
+
+  """page"""
+  limit: Int = 10
 
   """blog type"""
   type: String
@@ -1088,6 +1136,12 @@ input CreateCommentInput {
   """comment description"""
   description: String
 
+  """comment email"""
+  email: String
+
+  """comment name"""
+  name: String
+
   """comment date"""
   createdAt: String
 
@@ -1096,12 +1150,21 @@ input CreateCommentInput {
 
   """userId comment"""
   userId: String
+
+  """parentId comment"""
+  parentId: String
 }
 
 input UpdateCommentInput {
   """comment description"""
   description: String
 
+  """comment email"""
+  email: String
+
+  """comment name"""
+  name: String
+
   """comment date"""
   createdAt: String
 
@@ -1110,6 +1173,9 @@ input UpdateCommentInput {
 
   """userId comment"""
   userId: String
+
+  """parentId comment"""
+  parentId: String
   id: String!
 }
 

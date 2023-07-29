@@ -18,15 +18,43 @@ export class CommentsService {
 
   findAll(): Promise<Comment[]> {
     return this.commentRepository.find({
-      relations: ['blog'],
+      relations: ['blog', 'child', 'child.child'],
     });
   }
 
   findOne(id: string): Promise<Comment> {
     return this.commentRepository.findOne({
       where: { id },
-      relations: ['blog'],
+      relations: ['blog', 'child', 'child.child'],
     });
+  }
+
+  async findPostComments(blogId: string): Promise<Comment[]> {
+    const comment = await this.commentRepository.find({
+      where: { blogId },
+      relations: ['child', 'child.child'],
+    });
+
+    if (!comment) {
+      return [];
+    }
+
+    const commentWithChildren = await Promise.all(
+      comment.map((child) => this.findAllCommentChildren(child)),
+    );
+
+    return commentWithChildren;
+  }
+
+  private async findAllCommentChildren(comment: Comment): Promise<Comment> {
+    const child = await this.commentRepository.find({
+      where: { parent: comment },
+    });
+
+    const nestedChild = await Promise.all(
+      child.map((child) => this.findAllCommentChildren(child)),
+    );
+    return { ...comment, child: nestedChild };
   }
 
   update(id: string, updateCommentInput: UpdateCommentInput): Promise<Comment> {

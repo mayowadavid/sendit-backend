@@ -7,7 +7,6 @@ import {
   ManyToOne,
   JoinColumn,
   CreateDateColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 
 @ObjectType()
@@ -26,7 +25,12 @@ export class SubCategory {
   createdAt: Date;
 
   @Field({ description: 'updation date', nullable: true })
-  @UpdateDateColumn({ type: 'timestamp', precision: 3 })
+  @Column({
+    type: 'timestamp',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
+  })
   updatedAt: Date;
 
   @Field({ description: 'sub category id', nullable: true })
