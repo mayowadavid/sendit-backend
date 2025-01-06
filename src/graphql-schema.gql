@@ -1,0 +1,1227 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Earning {
+  id: String!
+
+  """withdrawn"""
+  withdrawn: String
+
+  """earning status"""
+  status: String
+
+  """overtime withdrawal"""
+  overtimeWithdrawn: String
+
+  """date"""
+  date: String
+
+  """pending Amount"""
+  pendingAmount: String
+
+  """monthly balance"""
+  balance: String
+
+  """overtime balance"""
+  overtimeEarnings: String
+
+  """user Id"""
+  userId: String
+
+  """user earning"""
+  user: User!
+}
+
+type SubCategory {
+  id: String!
+
+  """sub category name"""
+  name: String
+
+  """creation date"""
+  createdAt: DateTime
+
+  """updation date"""
+  updatedAt: DateTime
+
+  """sub category id"""
+  categoryId: String
+
+  """subCategory"""
+  category: Category
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Category {
+  id: String!
+
+  """category name"""
+  name: String
+
+  """category description"""
+  description: String
+
+  """category status"""
+  status: String
+
+  """display banner"""
+  displayBanner: Boolean
+
+  """blog id"""
+  blogId: String
+
+  """blog category"""
+  blog: [Blog!]
+
+  """sub category"""
+  subCategory: [SubCategory!]
+
+  """category image"""
+  file: File
+}
+
+type Comment {
+  id: String
+
+  """comment description"""
+  description: String
+
+  """comment date"""
+  createdAt: String
+
+  """blog comment"""
+  blogId: String
+
+  """userId comment"""
+  userId: String
+
+  """user comment"""
+  user: User
+
+  """blog files"""
+  blog: Blog!
+}
+
+type Blog {
+  id: String!
+
+  """blog title"""
+  name: String
+
+  """blog content"""
+  description: String
+
+  """blog content mark down"""
+  descriptionMarkDown: String
+
+  """blog status"""
+  status: String
+
+  """blog type"""
+  type: String
+
+  """blog slug"""
+  slug: String
+
+  """blog category id"""
+  categoryId: String
+
+  """blog file id"""
+  fileId: String
+
+  """blog comment id"""
+  commentId: String
+
+  """blog user id"""
+  userId: String
+
+  """blog category"""
+  user: User
+
+  """blog category"""
+  category: Category
+
+  """blog image"""
+  file: File
+
+  """blog comment"""
+  comments: [Comment!]
+
+  """blog date"""
+  createdAt: DateTime
+
+  """blog update"""
+  updatedAt: DateTime
+}
+
+type BlogPage {
+  """Paginated blog content"""
+  content: [Blog!]
+
+  """Current page numbers"""
+  total: Int!
+
+  """Indicates if there is a next page"""
+  hasNextPage: Boolean!
+}
+
+type allPackage {
+  id: String!
+
+  """sender Name"""
+  senderName: String
+
+  """sender Email"""
+  senderEmail: String
+
+  """sender Phone Number"""
+  senderPhoneNumber: String
+
+  """sender Gender"""
+  senderGender: String
+
+  """receiver Name"""
+  receiverName: String
+
+  """receiver Address"""
+  receiverAddress: String
+
+  """receiver Email"""
+  receiverEmail: String
+
+  """receiver Phone Number"""
+  receiverPhoneNumber: String
+
+  """receiver Gender"""
+  receiverGender: String
+
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
+
+  """package creation date"""
+  createdAt: DateTime
+
+  """package updation date"""
+  updatedAt: DateTime
+
+  """worth"""
+  worth: String
+
+  """quantity"""
+  quantity: String
+
+  """measurement"""
+  measurement: String
+
+  """size"""
+  size: String
+
+  """service Fee"""
+  serviceFee: String
+
+  """description"""
+  description: String
+
+  """package status"""
+  status: String
+
+  """imagesId"""
+  imagesId: String
+
+  """file"""
+  images: [File!]
+
+  """user"""
+  user: User!
+}
+
+type File {
+  id: String!
+
+  """image"""
+  image: String
+
+  """url"""
+  name: String
+
+  """audio"""
+  audio: String
+
+  """video"""
+  video: String
+
+  """GIF"""
+  gif: String
+
+  """documents"""
+  document: String
+
+  """profile image"""
+  profileImage: Profile
+
+  """Blog files"""
+  blog: Blog
+
+  """Chat files"""
+  message: Message
+
+  """package files"""
+  allPackage: allPackage
+
+  """category file"""
+  category: Category
+}
+
+type Message {
+  id: String!
+
+  """message date"""
+  date: String
+
+  """message time"""
+  time: String
+
+  """message description"""
+  description: String
+
+  """user Id"""
+  userId: String
+
+  """message file Id"""
+  fileId: String
+
+  """order Id"""
+  orderId: String
+
+  """message chat Id"""
+  chatId: String
+
+  """chat messages"""
+  user: User
+
+  """message file"""
+  file: [File!]
+
+  """chat messages"""
+  chat: Chat
+}
+
+type Chat {
+  id: String!
+
+  """chat sender id"""
+  senderId: String
+
+  """chat receiver id"""
+  receiverId: String
+
+  """user sender chat"""
+  sender: User
+
+  """user receiver chat"""
+  receiver: User
+
+  """chat messages"""
+  messageId: String
+
+  """chat messages"""
+  message: [Message!]
+}
+
+type Notification {
+  id: String!
+
+  """notification name)"""
+  name: String
+
+  """notification description)"""
+  description: String
+
+  """notification date)"""
+  createdAt: String
+
+  """notification date)"""
+  userId: String
+
+  """user notification"""
+  user: User
+}
+
+type User {
+  id: String!
+
+  """client username"""
+  userName: String
+
+  """client email"""
+  email: String
+
+  """password"""
+  password: String
+
+  """refresh token"""
+  refreshToken: String
+
+  """orderId"""
+  orderId: String
+
+  """referal code"""
+  referalCode: String
+
+  """refresh tokesn exp"""
+  refreshTokenExp: String
+
+  """user status"""
+  status: String
+
+  """user notification"""
+  notification: [Notification!]
+
+  """chat profile"""
+  profile: Profile
+
+  """user package"""
+  package: [allPackage!]
+
+  """user earning"""
+  earning: Earning
+
+  """user orders client"""
+  receiver: [Chat!]
+
+  """user orders seller"""
+  sender: [Chat!]
+
+  """user messages"""
+  message: [Message!]!
+
+  """user blog"""
+  blog: [Blog!]
+
+  """user comment"""
+  comment: [Comment!]
+}
+
+type Profile {
+  id: String!
+
+  """client gender"""
+  gender: String
+
+  """phone number"""
+  phoneNumber: String
+
+  """profile image"""
+  profileImage: String
+
+  """client firstname"""
+  firstName: String
+
+  """client lastname"""
+  lastName: String
+
+  """user id"""
+  userId: String
+
+  """User status"""
+  onlineStatus: Boolean
+
+  """User role"""
+  role: String
+
+  """User language"""
+  language: String
+
+  """user earning"""
+  user: User!
+
+  """profile images"""
+  file: File
+}
+
+type Wallet {
+  id: String!
+}
+
+type Referral {
+  id: String!
+
+  """reffered count"""
+  refferedCount: String
+
+  """reffered User"""
+  refferedUser: String
+}
+
+type SecurityQuestion {
+  id: String!
+
+  """question"""
+  question: String
+}
+
+type Complaint {
+  id: String!
+  user: String!
+  description: String!
+}
+
+type Query {
+  getAllUsers: [User!]!
+  findUser(id: String!): User!
+  loginUser(userData: CreateUserInput!): User!
+  currentUser: User!
+  findUserByName(userName: String!): User!
+  findAllProfile: [Profile!]!
+  profile(id: String!): Profile!
+  findProfileName(userName: String!): Profile!
+  findUserProfile: Profile!
+  earnings: [Earning!]!
+  earning(id: String!): Earning!
+  package(id: String!): allPackage!
+  currentUserpackage: allPackage!
+  wallet(id: Int!): Wallet!
+  referral(id: Int!): Referral!
+  notifications: [Notification!]!
+  findUserNotification: [Notification!]!
+  notification(id: String!): Notification!
+  chats: [Chat!]!
+  chatsByUser: [Chat!]!
+  chat(id: String!): Chat!
+  findChatByExistence(createChat: CreateChatInput!): Chat!
+  getAllmessages: [Message!]!
+  message(id: String!): Message!
+  allBlog: [Blog!]!
+  allBlogByPage(blogPageInput: BlogPageInput!): BlogPage!
+  findBlogByUser: [Blog!]!
+  blog(id: String!): Blog!
+  findBlogByName(name: String!): Blog!
+  files: [File!]!
+  file(id: String!): File!
+  securityQuestion(id: Int!): SecurityQuestion!
+  comments: [Comment!]!
+  comment(id: String!): Comment!
+  allCategories: [Category!]!
+  category(id: String!): Category!
+  complaints: [Complaint!]!
+  complaint(id: String!): Complaint!
+  allSubCategory: [SubCategory!]!
+  subCategory(id: String!): SubCategory!
+}
+
+input CreateUserInput {
+  """client username"""
+  userName: String
+
+  """client email"""
+  email: String
+
+  """client password"""
+  password: String
+
+  """profile Id"""
+  profileId: String
+
+  """order Id"""
+  orderId: String
+
+  """chat Id"""
+  chatId: String
+
+  """earning Id"""
+  earningId: String
+
+  """refresh token"""
+  refreshToken: String
+
+  """refresh token exp"""
+  refreshTokenExp: String
+
+  """registration date"""
+  createdAt: String
+
+  """user status"""
+  status: String
+}
+
+input CreateChatInput {
+  """message Id"""
+  messageId: String
+
+  """chat sender id"""
+  senderId: String
+
+  """chat receiver id"""
+  receiverId: String
+}
+
+input BlogPageInput {
+  page: Int! = 1
+  limit: Int! = 10
+}
+
+type Mutation {
+  createUser(createUser: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  updatePassword(updateUserInput: UpdateUserInput!): User!
+  removeUser(id: UpdateUserInput!): User!
+  createProfile(createProfileInput: CreateProfileInput!): Profile!
+  updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
+  removeProfile(id: String!): Profile!
+  createEarning(createEarningInput: CreateEarningInput!): Earning!
+  updateEarning(updateEarningInput: UpdateEarningInput!): Earning!
+  removeEarning(id: String!): Earning!
+  createPackage(createPackageInput: CreatePackageInput!): allPackage!
+  updatePackage(updatePackageInput: UpdatePackageInput!): allPackage!
+  deleteImage(updatePackageInput: UpdatePackageInput!): allPackage!
+  removePackage(id: String!): allPackage!
+  createWallet(createWalletInput: CreateWalletInput!): Wallet!
+  updateWallet(updateWalletInput: UpdateWalletInput!): Wallet!
+  removeWallet(id: Int!): Wallet!
+  createReferral(createReferralInput: CreateReferralInput!): Referral!
+  updateReferral(updateReferralInput: UpdateReferralInput!): Referral!
+  removeReferral(id: Int!): Referral!
+  createNotification(createNotificationInput: CreateNotificationInput!): Notification!
+  updateNotification(updateNotificationInput: UpdateNotificationInput!): Notification!
+  removeNotification(id: String!): Notification!
+  createChat(createChat: CreateChatInput!): Chat!
+  updateChat(updateChatInput: UpdateChatInput!): Chat!
+  removeChat(id: String!): Chat!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
+  updateMessage(updateMessageInput: UpdateMessageInput!): Message!
+  removeMessage(id: String!): Message!
+  createBlog(createBlogInput: CreateBlogInput!): Blog!
+  updateBlog(updateBlogInput: UpdateBlogInput!): Blog!
+  removeBlog(id: String!): Blog!
+  createFile(createFileInput: CreateFileInput!): File!
+  updateFile(updateFileInput: UpdateFileInput!): File!
+  removeFile(id: String!): File!
+  createSecurityQuestion(createSecurityQuestionInput: CreateSecurityQuestionInput!): SecurityQuestion!
+  updateSecurityQuestion(updateSecurityQuestionInput: UpdateSecurityQuestionInput!): SecurityQuestion!
+  removeSecurityQuestion(id: Int!): SecurityQuestion!
+  createComment(createCommentInput: CreateCommentInput!): Comment!
+  updateComment(updateCommentInput: UpdateCommentInput!): Comment!
+  removeComment(id: String!): Comment!
+  createCategory(createCategoryInput: CreateCategoryInput!): Category!
+  updateCategory(updateCategoryInput: UpdateCategoryInput!): Category!
+  removeCategory(id: String!): Category!
+  createComplaint(createComplaintInput: CreateComplaintInput!): Complaint!
+  updateComplaint(updateComplaintInput: UpdateComplaintInput!): Complaint!
+  removeComplaint(id: String!): Complaint!
+  createSubCategory(createSubCategoryInput: CreateSubCategoryInput!): SubCategory!
+  updateSubCategory(updateSubCategoryInput: UpdateSubCategoryInput!): SubCategory!
+  removeSubCategory(id: String!): SubCategory!
+}
+
+input UpdateUserInput {
+  """client username"""
+  userName: String
+
+  """client email"""
+  email: String
+
+  """client password"""
+  password: String
+
+  """profile Id"""
+  profileId: String
+
+  """order Id"""
+  orderId: String
+
+  """chat Id"""
+  chatId: String
+
+  """earning Id"""
+  earningId: String
+
+  """refresh token"""
+  refreshToken: String
+
+  """refresh token exp"""
+  refreshTokenExp: String
+
+  """registration date"""
+  createdAt: String
+
+  """user status"""
+  status: String
+  id: String!
+
+  """client password"""
+  newPassword: String
+}
+
+input CreateProfileInput {
+  """client gender"""
+  gender: String
+
+  """phone number"""
+  phoneNumber: String
+
+  """profile image"""
+  profileImage: String
+
+  """client firstname"""
+  firstName: String
+
+  """client lastname"""
+  lastName: String
+
+  """user id"""
+  userId: String
+
+  """User status"""
+  onlineStatus: Boolean
+
+  """User role"""
+  role: String
+
+  """User language"""
+  language: String
+}
+
+input UpdateProfileInput {
+  """client gender"""
+  gender: String
+
+  """phone number"""
+  phoneNumber: String
+
+  """profile image"""
+  profileImage: String
+
+  """client firstname"""
+  firstName: String
+
+  """client lastname"""
+  lastName: String
+
+  """user id"""
+  userId: String
+
+  """User status"""
+  onlineStatus: Boolean
+
+  """User role"""
+  role: String
+
+  """User language"""
+  language: String
+  id: String!
+}
+
+input CreateEarningInput {
+  """withdrawn"""
+  withdrawn: String
+
+  """status"""
+  status: String
+
+  """overtime withdrawal"""
+  overtimeWithdrawn: String
+
+  """date"""
+  date: String
+
+  """pending Amount"""
+  pendingAmount: String
+
+  """monthly balance"""
+  balance: String
+
+  """overtime balance"""
+  overtimeEarnings: String
+
+  """overtime balance"""
+  userId: String
+}
+
+input UpdateEarningInput {
+  """withdrawn"""
+  withdrawn: String
+
+  """status"""
+  status: String
+
+  """overtime withdrawal"""
+  overtimeWithdrawn: String
+
+  """date"""
+  date: String
+
+  """pending Amount"""
+  pendingAmount: String
+
+  """monthly balance"""
+  balance: String
+
+  """overtime balance"""
+  overtimeEarnings: String
+
+  """overtime balance"""
+  userId: String
+  id: String!
+}
+
+input CreatePackageInput {
+  """sender Name"""
+  senderName: String
+
+  """sender Email"""
+  senderEmail: String
+
+  """sender Phone Number"""
+  senderPhoneNumber: String
+
+  """sender Gender"""
+  senderGender: String
+
+  """receiver Name"""
+  receiverName: String
+
+  """receiver Address"""
+  receiverAddress: String
+
+  """receiver Email"""
+  receiverEmail: String
+
+  """receiver Phone Number"""
+  receiverPhoneNumber: String
+
+  """receiver Gender"""
+  receiverGender: String
+
+  """worth"""
+  worth: String
+
+  """quantity"""
+  quantity: String
+
+  """measurement"""
+  measurement: String
+
+  """size"""
+  size: String
+
+  """service Fee"""
+  serviceFee: String
+
+  """description"""
+  description: String
+
+  """package status"""
+  status: String
+
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
+
+  """imagesId"""
+  imagesId: String
+}
+
+input UpdatePackageInput {
+  """sender Name"""
+  senderName: String
+
+  """sender Email"""
+  senderEmail: String
+
+  """sender Phone Number"""
+  senderPhoneNumber: String
+
+  """sender Gender"""
+  senderGender: String
+
+  """receiver Name"""
+  receiverName: String
+
+  """receiver Address"""
+  receiverAddress: String
+
+  """receiver Email"""
+  receiverEmail: String
+
+  """receiver Phone Number"""
+  receiverPhoneNumber: String
+
+  """receiver Gender"""
+  receiverGender: String
+
+  """worth"""
+  worth: String
+
+  """quantity"""
+  quantity: String
+
+  """measurement"""
+  measurement: String
+
+  """size"""
+  size: String
+
+  """service Fee"""
+  serviceFee: String
+
+  """description"""
+  description: String
+
+  """package status"""
+  status: String
+
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
+
+  """imagesId"""
+  imagesId: String
+  id: String!
+
+  """file"""
+  file: String
+}
+
+input CreateWalletInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateWalletInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateReferralInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateReferralInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateNotificationInput {
+  """notification name)"""
+  name: String
+
+  """notification description)"""
+  description: String
+
+  """notification date)"""
+  createdAt: String
+
+  """notification date)"""
+  userId: String
+}
+
+input UpdateNotificationInput {
+  """notification name)"""
+  name: String
+
+  """notification description)"""
+  description: String
+
+  """notification date)"""
+  createdAt: String
+
+  """notification date)"""
+  userId: String
+  id: String!
+}
+
+input UpdateChatInput {
+  """message Id"""
+  messageId: String
+
+  """chat sender id"""
+  senderId: String
+
+  """chat receiver id"""
+  receiverId: String
+  id: String!
+}
+
+input CreateMessageInput {
+  """message date"""
+  date: String
+
+  """message time"""
+  time: String
+
+  """message description"""
+  description: String
+
+  """user Id"""
+  userId: String
+
+  """message file Id"""
+  fileId: String
+
+  """order Id"""
+  orderId: String
+
+  """message chat Id"""
+  chatId: String
+}
+
+input UpdateMessageInput {
+  """message date"""
+  date: String
+
+  """message time"""
+  time: String
+
+  """message description"""
+  description: String
+
+  """user Id"""
+  userId: String
+
+  """message file Id"""
+  fileId: String
+
+  """order Id"""
+  orderId: String
+
+  """message chat Id"""
+  chatId: String
+  id: String!
+}
+
+input CreateBlogInput {
+  """blog title"""
+  name: String
+
+  """blog content"""
+  description: String
+
+  """blog content mark down"""
+  descriptionMarkDown: String
+
+  """blog status"""
+  status: String
+
+  """blog slug"""
+  slug: String
+
+  """blog type"""
+  type: String
+
+  """blog category id"""
+  categoryId: String
+
+  """blog file id"""
+  fileId: String
+
+  """blog comment id"""
+  commentId: String
+
+  """blog user id"""
+  userId: String
+}
+
+input UpdateBlogInput {
+  """blog title"""
+  name: String
+
+  """blog content"""
+  description: String
+
+  """blog content mark down"""
+  descriptionMarkDown: String
+
+  """blog status"""
+  status: String
+
+  """blog slug"""
+  slug: String
+
+  """blog type"""
+  type: String
+
+  """blog file id"""
+  categoryId: String
+
+  """blog file id"""
+  fileId: String
+
+  """blog comment id"""
+  commentId: String
+
+  """blog user id"""
+  userId: String
+  id: String!
+}
+
+input CreateFileInput {
+  """file name"""
+  name: String
+
+  """image"""
+  image: String
+
+  """audio"""
+  audio: String!
+
+  """video"""
+  video: String!
+
+  """GIF"""
+  gif: String
+
+  """documents"""
+  document: String
+}
+
+input UpdateFileInput {
+  """file name"""
+  name: String
+
+  """image"""
+  image: String
+
+  """audio"""
+  audio: String!
+
+  """video"""
+  video: String!
+
+  """GIF"""
+  gif: String
+
+  """documents"""
+  document: String
+  id: String!
+}
+
+input CreateSecurityQuestionInput {
+  """Example field (placeholder)"""
+  exampleField: Int!
+}
+
+input UpdateSecurityQuestionInput {
+  """Example field (placeholder)"""
+  exampleField: Int
+  id: Int!
+}
+
+input CreateCommentInput {
+  """comment description"""
+  description: String
+
+  """comment date"""
+  createdAt: String
+
+  """blog comment"""
+  blogId: String
+
+  """userId comment"""
+  userId: String
+}
+
+input UpdateCommentInput {
+  """comment description"""
+  description: String
+
+  """comment date"""
+  createdAt: String
+
+  """blog comment"""
+  blogId: String
+
+  """userId comment"""
+  userId: String
+  id: String!
+}
+
+input CreateCategoryInput {
+  """category name"""
+  name: String
+
+  """category description"""
+  description: String
+
+  """category status"""
+  status: String
+
+  """display banner"""
+  displayBanner: Boolean
+
+  """sub category id"""
+  subCategoryId: String
+
+  """gig id"""
+  gigId: String
+
+  """blog id"""
+  blogId: String
+}
+
+input UpdateCategoryInput {
+  """category name"""
+  name: String
+
+  """category description"""
+  description: String
+
+  """category status"""
+  status: String
+
+  """display banner"""
+  displayBanner: Boolean
+
+  """sub category id"""
+  subCategoryId: String
+
+  """gig id"""
+  gigId: String
+
+  """blog id"""
+  blogId: String
+  id: String!
+}
+
+input CreateComplaintInput {
+  id: String!
+  user: String!
+  description: String!
+}
+
+input UpdateComplaintInput {
+  id: String!
+  user: String!
+  description: String!
+}
+
+input CreateSubCategoryInput {
+  """sub category name"""
+  name: String
+
+  """category id"""
+  categoryId: String
+}
+
+input UpdateSubCategoryInput {
+  """sub category name"""
+  name: String
+
+  """category id"""
+  categoryId: String
+  id: String!
+}
