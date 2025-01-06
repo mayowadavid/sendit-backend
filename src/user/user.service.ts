@@ -113,7 +113,11 @@ export class UserService {
     let user;
     if (email !== null && email !== undefined && email.length > 0) {
       user = await this.userRepository.findOne({
+<<<<<<< HEAD
         relations: ['profile', 'earning', 'package', 'notification'],
+=======
+        relations: ['profile', 'earning'],
+>>>>>>> origin/main
         where: {
           email,
         },
@@ -124,7 +128,11 @@ export class UserService {
       userName.length > 0
     ) {
       user = await this.userRepository.findOne({
+<<<<<<< HEAD
         relations: ['profile', 'notification', 'earning', 'package'],
+=======
+        relations: ['profile', 'notification', 'earning'],
+>>>>>>> origin/main
         where: {
           userName,
         },
@@ -201,6 +209,7 @@ export class UserService {
     return this.userRepository.save(result);
   }
 
+<<<<<<< HEAD
   async updatePassword(
     id: string,
     updateUserInput: UpdateUserInput,
@@ -229,6 +238,8 @@ export class UserService {
     return this.userRepository.save(result);
   }
 
+=======
+>>>>>>> origin/main
   async remove(id: string): Promise<User> {
     const removeUser: User = await this.userRepository.findOne({
       where: { id },

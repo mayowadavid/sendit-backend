@@ -3,6 +3,10 @@ import { File } from 'src/files/entities/file.entity';
 import { User } from 'src/user/entities/user.entity';
 import { Category } from 'src/categories/entities/category.entity';
 import { Comment } from 'src/comments/entities/comment.entity';
+<<<<<<< HEAD
+=======
+import { IsOptional, IsPositive } from 'class-validator';
+>>>>>>> origin/main
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -12,7 +16,10 @@ import {
   OneToOne,
   JoinColumn,
   CreateDateColumn,
+<<<<<<< HEAD
   UpdateDateColumn,
+=======
+>>>>>>> origin/main
 } from 'typeorm';
 
 export enum BlogStatus {
@@ -67,6 +74,17 @@ export class Blog {
   @Column({ nullable: true })
   slug: string;
 
+<<<<<<< HEAD
+=======
+  @Field(() => Int, { description: 'page', defaultValue: 1, nullable: true })
+  @Column({ nullable: true })
+  page: number;
+
+  @Field(() => Int, { description: 'page', defaultValue: 10, nullable: true })
+  @Column({ nullable: true })
+  limit: number;
+
+>>>>>>> origin/main
   @Field({ description: 'blog category id', nullable: true })
   @Column({ nullable: true })
   categoryId: string;
@@ -103,9 +121,16 @@ export class Blog {
   @Field(() => File, { description: 'blog image', nullable: true })
   file: File;
 
+<<<<<<< HEAD
   @OneToMany(() => Comment, (comment) => comment.blog, {
     onDelete: 'CASCADE',
   })
+=======
+  @OneToMany(() => Comment, (comments) => comments.blog, {
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn()
+>>>>>>> origin/main
   @Field(() => [Comment], { description: 'blog comment', nullable: true })
   comments: Comment[];
 
@@ -114,6 +139,7 @@ export class Blog {
   createdAt: Date;
 
   @Field({ description: 'blog update', nullable: true })
+<<<<<<< HEAD
   @UpdateDateColumn({ type: 'timestamp', precision: 3 })
   updatedAt: Date;
 } 
@@ -133,3 +159,13 @@ export class BlogPage {
   @Field(() => Boolean, { description: 'Indicates if there is a next page' })
   hasNextPage: boolean;
 }
+=======
+  @Column({
+    type: 'timestamp',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
+  })
+  updatedAt: Date;
+}
+>>>>>>> origin/main

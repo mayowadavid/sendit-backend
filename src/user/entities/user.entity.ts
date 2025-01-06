@@ -15,7 +15,11 @@ import {
   OneToOne,
   JoinColumn,
 } from 'typeorm';
+<<<<<<< HEAD
 import { allPackage } from 'src/package/entities/package.entity';
+=======
+import { Package } from 'src/package/entities/package.entity';
+>>>>>>> origin/main
 
 export enum UserStatus {
   BANNED = 'banned',
@@ -51,11 +55,15 @@ export class User {
   @Column({ nullable: true, name: 'orderId' })
   orderId: string;
 
+<<<<<<< HEAD
   @Field({ description: 'referal code', nullable: true })
   @Column({ type: 'date', nullable: true, name: 'referalCode' })
   referalCode: string;
 
   @Field({ description: 'refresh tokesn exp', nullable: true })
+=======
+  @Field({ description: 'refresh token exp', nullable: true })
+>>>>>>> origin/main
   @Column({ type: 'date', nullable: true, name: 'refreshtokenexp' })
   refreshTokenExp: string;
 
@@ -80,9 +88,16 @@ export class User {
   @Field(() => Profile, { description: 'chat profile', nullable: true })
   profile: Profile;
 
+<<<<<<< HEAD
   @OneToMany(() => allPackage, (allpackage) => allpackage.user)
   @Field(() => [allPackage], { description: 'user package', nullable: true })
   package: allPackage[];
+=======
+  @OneToOne(() => Package, (packages) => packages.user)
+  @JoinColumn()
+  @Field(() => Package, { description: 'user package', nullable: true })
+  package: Package;
+>>>>>>> origin/main
 
   @OneToOne(() => Earning, (earning) => earning.user)
   @JoinColumn()

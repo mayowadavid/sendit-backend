@@ -56,7 +56,10 @@ export class CreatePackageInput {
 
   @Field({ description: 'package destination', nullable: true })
   destination: string;
+<<<<<<< HEAD
 
   @Field({ description: 'imagesId', nullable: true })
   imagesId: string;
+=======
+>>>>>>> origin/main
 }

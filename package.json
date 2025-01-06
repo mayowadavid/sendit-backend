@@ -21,6 +21,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+<<<<<<< HEAD
     "@nestjs-modules/mailer": "^2.0.2",
     "@nestjs/apollo": "^10.1.4",
     "@nestjs/common": "^8.0.0",
@@ -28,6 +29,15 @@
     "@nestjs/core": "^8.0.0",
     "@nestjs/graphql": "^10.1.5",
     "@nestjs/jwt": "^9.0.0",
+=======
+    "@apollo/server": "^4.7.5",
+    "@nestjs/apollo": "^10.1.4",
+    "@nestjs/common": "^8.4.7",
+    "@nestjs/config": "^2.3.1",
+    "@nestjs/core": "^8.0.0",
+    "@nestjs/graphql": "^10.1.5",
+    "@nestjs/jwt": "^10.1.0",
+>>>>>>> origin/main
     "@nestjs/passport": "^9.0.0",
     "@nestjs/platform-express": "^8.0.0",
     "@nestjs/typeorm": "^9.0.1",
@@ -35,17 +45,26 @@
     "apollo-server-express": "^3.12.0",
     "aws-sdk": "^2.1248.0",
     "bcrypt": "^5.1.0",
+<<<<<<< HEAD
     "ejs": "^3.1.10",
     "graphql": "^16.6.0",
     "handlebars": "^4.7.8",
     "moment": "^2.29.4",
     "nestjs-mailer": "^1.0.1",
     "nodemailer": "^6.9.16",
+=======
+    "class-validator": "^0.14.0",
+    "graphql": "^16.6.0",
+    "moment": "^2.29.4",
+>>>>>>> origin/main
     "passport": "^0.6.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "pg": "^8.8.0",
+<<<<<<< HEAD
     "pug": "^3.0.3",
+=======
+>>>>>>> origin/main
     "pusher": "^5.1.1-beta",
     "reflect-metadata": "^0.1.13",
     "rimraf": "^3.0.2",
@@ -53,14 +72,21 @@
     "typeorm": "^0.3.10"
   },
   "devDependencies": {
+<<<<<<< HEAD
     "@nestjs/cli": "^8.0.0",
+=======
+    "@nestjs/cli": "^10.1.8",
+>>>>>>> origin/main
     "@nestjs/schematics": "^8.0.0",
     "@nestjs/testing": "^8.0.0",
     "@types/express": "^4.17.14",
     "@types/jest": "27.5.0",
     "@types/multer": "^1.4.7",
     "@types/node": "^16.0.0",
+<<<<<<< HEAD
     "@types/nodemailer": "^6.4.17",
+=======
+>>>>>>> origin/main
     "@types/passport-jwt": "^3.0.6",
     "@types/supertest": "^2.0.11",
     "@typescript-eslint/eslint-plugin": "^5.0.0",

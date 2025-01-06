@@ -91,8 +91,22 @@ type Comment {
   """comment description"""
   description: String
 
+<<<<<<< HEAD
   """comment date"""
   createdAt: String
+=======
+  """comment name"""
+  name: String
+
+  """comment email"""
+  email: String
+
+  """comment date"""
+  createdAt: DateTime
+
+  """comment update"""
+  updatedAt: DateTime
+>>>>>>> origin/main
 
   """blog comment"""
   blogId: String
@@ -100,11 +114,27 @@ type Comment {
   """userId comment"""
   userId: String
 
+<<<<<<< HEAD
+=======
+  """parentId comment"""
+  parentId: String
+
+>>>>>>> origin/main
   """user comment"""
   user: User
 
   """blog files"""
+<<<<<<< HEAD
   blog: Blog!
+=======
+  blog: Blog
+
+  """child comment"""
+  child: [Comment!]
+
+  """parent comment"""
+  parent: Comment!
+>>>>>>> origin/main
 }
 
 type Blog {
@@ -128,6 +158,15 @@ type Blog {
   """blog slug"""
   slug: String
 
+<<<<<<< HEAD
+=======
+  """page"""
+  page: Int
+
+  """page"""
+  limit: Int
+
+>>>>>>> origin/main
   """blog category id"""
   categoryId: String
 
@@ -159,6 +198,7 @@ type Blog {
   updatedAt: DateTime
 }
 
+<<<<<<< HEAD
 type BlogPage {
   """Paginated blog content"""
   content: [Blog!]
@@ -243,6 +283,8 @@ type allPackage {
   user: User!
 }
 
+=======
+>>>>>>> origin/main
 type File {
   id: String!
 
@@ -273,9 +315,12 @@ type File {
   """Chat files"""
   message: Message
 
+<<<<<<< HEAD
   """package files"""
   allPackage: allPackage
 
+=======
+>>>>>>> origin/main
   """category file"""
   category: Category
 }
@@ -355,6 +400,79 @@ type Notification {
   user: User
 }
 
+<<<<<<< HEAD
+=======
+type Package {
+  id: String!
+
+  """sender Name"""
+  senderName: String
+
+  """sender Email"""
+  senderEmail: String
+
+  """sender Phone Number"""
+  senderPhoneNumber: String
+
+  """sender Gender"""
+  senderGender: String
+
+  """receiver Name"""
+  receiverName: String
+
+  """receiver Address"""
+  receiverAddress: String
+
+  """receiver Email"""
+  receiverEmail: String
+
+  """receiver Phone Number"""
+  receiverPhoneNumber: String
+
+  """receiver Gender"""
+  receiverGender: String
+
+  """pick up location"""
+  pickUp: String
+
+  """package destination"""
+  destination: String
+
+  """package creation date"""
+  createdAt: DateTime
+
+  """package updation date"""
+  updatedAt: DateTime
+
+  """worth"""
+  worth: String
+
+  """quantity"""
+  quantity: String
+
+  """measurement"""
+  measurement: String
+
+  """size"""
+  size: String
+
+  """service Fee"""
+  serviceFee: String
+
+  """description"""
+  description: String
+
+  """package status"""
+  status: String
+
+  """file"""
+  file: String
+
+  """user"""
+  user: User!
+}
+
+>>>>>>> origin/main
 type User {
   id: String!
 
@@ -373,10 +491,14 @@ type User {
   """orderId"""
   orderId: String
 
+<<<<<<< HEAD
   """referal code"""
   referalCode: String
 
   """refresh tokesn exp"""
+=======
+  """refresh token exp"""
+>>>>>>> origin/main
   refreshTokenExp: String
 
   """user status"""
@@ -389,7 +511,11 @@ type User {
   profile: Profile
 
   """user package"""
+<<<<<<< HEAD
   package: [allPackage!]
+=======
+  package: Package
+>>>>>>> origin/main
 
   """user earning"""
   earning: Earning
@@ -461,6 +587,19 @@ type Referral {
   refferedUser: String
 }
 
+<<<<<<< HEAD
+=======
+type BlogPostPaginationResult {
+  posts: [Blog!]!
+  hasNextPage: Boolean!
+}
+
+type BlogPagePaginationResult {
+  pages: [Blog!]!
+  hasNextPage: Boolean!
+}
+
+>>>>>>> origin/main
 type SecurityQuestion {
   id: String!
 
@@ -486,8 +625,13 @@ type Query {
   findUserProfile: Profile!
   earnings: [Earning!]!
   earning(id: String!): Earning!
+<<<<<<< HEAD
   package(id: String!): allPackage!
   currentUserpackage: allPackage!
+=======
+  package(id: String!): Package!
+  currentUserpackage: Package!
+>>>>>>> origin/main
   wallet(id: Int!): Wallet!
   referral(id: Int!): Referral!
   notifications: [Notification!]!
@@ -500,10 +644,18 @@ type Query {
   getAllmessages: [Message!]!
   message(id: String!): Message!
   allBlog: [Blog!]!
+<<<<<<< HEAD
   allBlogByPage(blogPageInput: BlogPageInput!): BlogPage!
   findBlogByUser: [Blog!]!
   blog(id: String!): Blog!
   findBlogByName(name: String!): Blog!
+=======
+  allBlogPage(pagination: CreateBlogInput): BlogPagePaginationResult!
+  allBlogPost(pagination: CreateBlogInput): BlogPostPaginationResult!
+  findBlogByUser: [Blog!]!
+  blog(id: String!): Blog!
+  findBlogBySlug(name: String!): Blog!
+>>>>>>> origin/main
   files: [File!]!
   file(id: String!): File!
   securityQuestion(id: Int!): SecurityQuestion!
@@ -563,15 +715,57 @@ input CreateChatInput {
   receiverId: String
 }
 
+<<<<<<< HEAD
 input BlogPageInput {
   page: Int! = 1
   limit: Int! = 10
+=======
+input CreateBlogInput {
+  """blog title"""
+  name: String
+
+  """blog content"""
+  description: String
+
+  """blog content mark down"""
+  descriptionMarkDown: String
+
+  """blog status"""
+  status: String
+
+  """blog slug"""
+  slug: String
+
+  """page"""
+  page: Int = 1
+
+  """page"""
+  limit: Int = 10
+
+  """blog type"""
+  type: String
+
+  """blog category id"""
+  categoryId: String
+
+  """blog file id"""
+  fileId: String
+
+  """blog comment id"""
+  commentId: String
+
+  """blog user id"""
+  userId: String
+>>>>>>> origin/main
 }
 
 type Mutation {
   createUser(createUser: CreateUserInput!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
+<<<<<<< HEAD
   updatePassword(updateUserInput: UpdateUserInput!): User!
+=======
+>>>>>>> origin/main
   removeUser(id: UpdateUserInput!): User!
   createProfile(createProfileInput: CreateProfileInput!): Profile!
   updateProfile(updateProfileInput: UpdateProfileInput!): Profile!
@@ -579,10 +773,16 @@ type Mutation {
   createEarning(createEarningInput: CreateEarningInput!): Earning!
   updateEarning(updateEarningInput: UpdateEarningInput!): Earning!
   removeEarning(id: String!): Earning!
+<<<<<<< HEAD
   createPackage(createPackageInput: CreatePackageInput!): allPackage!
   updatePackage(updatePackageInput: UpdatePackageInput!): allPackage!
   deleteImage(updatePackageInput: UpdatePackageInput!): allPackage!
   removePackage(id: String!): allPackage!
+=======
+  createPackage(createPackageInput: CreatePackageInput!): Package!
+  updatePackage(updatePackageInput: UpdatePackageInput!): Package!
+  removePackage(id: String!): Package!
+>>>>>>> origin/main
   createWallet(createWalletInput: CreateWalletInput!): Wallet!
   updateWallet(updateWalletInput: UpdateWalletInput!): Wallet!
   removeWallet(id: Int!): Wallet!
@@ -655,9 +855,12 @@ input UpdateUserInput {
   """user status"""
   status: String
   id: String!
+<<<<<<< HEAD
 
   """client password"""
   newPassword: String
+=======
+>>>>>>> origin/main
 }
 
 input CreateProfileInput {
@@ -826,9 +1029,12 @@ input CreatePackageInput {
 
   """package destination"""
   destination: String
+<<<<<<< HEAD
 
   """imagesId"""
   imagesId: String
+=======
+>>>>>>> origin/main
 }
 
 input UpdatePackageInput {
@@ -885,9 +1091,12 @@ input UpdatePackageInput {
 
   """package destination"""
   destination: String
+<<<<<<< HEAD
 
   """imagesId"""
   imagesId: String
+=======
+>>>>>>> origin/main
   id: String!
 
   """file"""
@@ -1004,6 +1213,7 @@ input UpdateMessageInput {
   id: String!
 }
 
+<<<<<<< HEAD
 input CreateBlogInput {
   """blog title"""
   name: String
@@ -1036,6 +1246,8 @@ input CreateBlogInput {
   userId: String
 }
 
+=======
+>>>>>>> origin/main
 input UpdateBlogInput {
   """blog title"""
   name: String
@@ -1052,6 +1264,15 @@ input UpdateBlogInput {
   """blog slug"""
   slug: String
 
+<<<<<<< HEAD
+=======
+  """page"""
+  page: Int = 1
+
+  """page"""
+  limit: Int = 10
+
+>>>>>>> origin/main
   """blog type"""
   type: String
 
@@ -1125,6 +1346,15 @@ input CreateCommentInput {
   """comment description"""
   description: String
 
+<<<<<<< HEAD
+=======
+  """comment email"""
+  email: String
+
+  """comment name"""
+  name: String
+
+>>>>>>> origin/main
   """comment date"""
   createdAt: String
 
@@ -1133,12 +1363,27 @@ input CreateCommentInput {
 
   """userId comment"""
   userId: String
+<<<<<<< HEAD
+=======
+
+  """parentId comment"""
+  parentId: String
+>>>>>>> origin/main
 }
 
 input UpdateCommentInput {
   """comment description"""
   description: String
 
+<<<<<<< HEAD
+=======
+  """comment email"""
+  email: String
+
+  """comment name"""
+  name: String
+
+>>>>>>> origin/main
   """comment date"""
   createdAt: String
 
@@ -1147,6 +1392,12 @@ input UpdateCommentInput {
 
   """userId comment"""
   userId: String
+<<<<<<< HEAD
+=======
+
+  """parentId comment"""
+  parentId: String
+>>>>>>> origin/main
   id: String!
 }
 

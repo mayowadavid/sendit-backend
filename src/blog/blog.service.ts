@@ -1,7 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBlogInput } from './dto/create-blog.input';
 import { UpdateBlogInput } from './dto/update-blog.input';
+<<<<<<< HEAD
 import { Blog, BlogPage } from './entities/blog.entity';
+=======
+import { Blog, BlogType } from './entities/blog.entity';
+>>>>>>> origin/main
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { FilesService } from 'src/files/files.service';
@@ -25,12 +29,60 @@ export class BlogService {
         'file',
         'category',
         'user',
+<<<<<<< HEAD
+=======
+        'comments',
+        'comments.blog',
+>>>>>>> origin/main
         'user.profile',
         'user.profile.file',
       ],
     });
   }
 
+<<<<<<< HEAD
+=======
+  async findByPost(offset: number, limit: number): Promise<[Blog[], number]> {
+    const [posts, total] = await this.blogRepository.findAndCount({
+      where: { type: BlogType.POST },
+      relations: [
+        'file',
+        'category',
+        'user',
+        'user.profile',
+        'user.profile.file',
+        'comments',
+        'comments.blog',
+      ],
+      skip: offset,
+      take: limit,
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return [posts, total];
+  }
+
+  async findByPage(offset: number, limit: number): Promise<[Blog[], number]> {
+    const [pages, total] = await this.blogRepository.findAndCount({
+      where: { type: BlogType.PAGE },
+      relations: [
+        'file',
+        'category',
+        'user',
+        'user.profile',
+        'user.profile.file',
+      ],
+      skip: offset,
+      take: limit,
+      order: {
+        createdAt: 'DESC',
+      },
+    });
+    return [pages, total];
+  }
+
+>>>>>>> origin/main
   async findBlogByUser(user): Promise<Blog[]> {
     const result = await this.blogRepository.find({
       relations: [
@@ -48,11 +100,26 @@ export class BlogService {
     return result;
   }
 
+<<<<<<< HEAD
   async findBlogByName(name: string): Promise<Blog> {
     const result = await this.blogRepository.findOne({
       relations: ['file', 'category', 'user'],
       where: {
         name,
+=======
+  async findBlogBySlug(slug: string): Promise<Blog> {
+    const result = await this.blogRepository.findOne({
+      relations: [
+        'file',
+        'category',
+        'user',
+        'comments',
+        'comments.blog',
+        'comments.child',
+      ],
+      where: {
+        slug,
+>>>>>>> origin/main
       },
     });
     return result;
@@ -117,6 +184,7 @@ export class BlogService {
     });
   }
 
+<<<<<<< HEAD
   async findAllPaginated(page: number, limit: number): Promise<BlogPage> {
     const startIndex = (page - 1) * limit;
     const endIndex = page * limit;
@@ -139,6 +207,8 @@ export class BlogService {
     };
   }
 
+=======
+>>>>>>> origin/main
   async update(id: string, updateBlogInput: UpdateBlogInput): Promise<Blog> {
     const blog: Blog = await this.blogRepository.findOne({
       where: {

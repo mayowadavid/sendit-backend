@@ -25,7 +25,10 @@ import { ProfileModule } from './profile/profile.module';
 import { EarningsModule } from './earnings/earnings.module';
 import { PusherService } from './pusher/pusher.service';
 import { SubCategoryModule } from './sub-category/sub-category.module';
+<<<<<<< HEAD
 import { EmailSettingsModule } from './email-settings/email-settings.module';
+=======
+>>>>>>> origin/main
 
 @Module({
   imports: [
@@ -66,7 +69,10 @@ import { EmailSettingsModule } from './email-settings/email-settings.module';
     EarningsModule,
     NotificationModule,
     SubCategoryModule,
+<<<<<<< HEAD
     EmailSettingsModule,
+=======
+>>>>>>> origin/main
   ],
   controllers: [AppController],
   providers: [AppService, PusherService],

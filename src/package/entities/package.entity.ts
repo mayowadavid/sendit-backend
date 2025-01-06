@@ -9,9 +9,13 @@ import {
   OneToOne,
   JoinColumn,
   CreateDateColumn,
+<<<<<<< HEAD
   UpdateDateColumn,
 } from 'typeorm';
 import { File } from '../../files/entities/file.entity';
+=======
+} from 'typeorm';
+>>>>>>> origin/main
 
 export enum packageStatus {
   INCOMPLETE = 'incomplete',
@@ -22,7 +26,11 @@ export enum packageStatus {
 
 @ObjectType()
 @Entity()
+<<<<<<< HEAD
 export class allPackage {
+=======
+export class Package {
+>>>>>>> origin/main
   @Field()
   @PrimaryGeneratedColumn('uuid')
   id: string;
@@ -76,7 +84,16 @@ export class allPackage {
   createdAt: Date;
 
   @Field({ description: 'package updation date', nullable: true })
+<<<<<<< HEAD
   @UpdateDateColumn({ type: 'timestamp', precision: 3 })
+=======
+  @Column({
+    type: 'timestamp',
+    precision: 3,
+    default: () => 'CURRENT_TIMESTAMP(3)',
+    onUpdate: 'CURRENT_TIMESTAMP(3)',
+  })
+>>>>>>> origin/main
   updatedAt: Date;
 
   @Field({ description: 'worth', nullable: true })
@@ -112,6 +129,7 @@ export class allPackage {
   })
   status: packageStatus;
 
+<<<<<<< HEAD
   @Field({ description: 'imagesId', nullable: true })
   @Column({ nullable: true, name: 'imagesId' })
   imagesId: string;
@@ -123,6 +141,13 @@ export class allPackage {
   images: File[];
 
   @ManyToOne(() => User, (user) => user.package)
+=======
+  @Field({ description: 'file', nullable: true })
+  @Column({ nullable: true })
+  file: string;
+
+  @OneToOne(() => User, (user) => user.package)
+>>>>>>> origin/main
   @Field(() => User, { description: 'user' })
   user: User;
 }

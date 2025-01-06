@@ -1,8 +1,12 @@
 {
   "$schema": "https://json.schemastore.org/nest-cli",
   "collection": "@nestjs/schematics",
+<<<<<<< HEAD
   "sourceRoot": "src",
   "compilerOptions": {
     "assets": ["templates/**"]
   }
+=======
+  "sourceRoot": "src"
+>>>>>>> origin/main
 }

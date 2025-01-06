@@ -6,9 +6,17 @@ import { Blog } from './entities/blog.entity';
 // import { BlogController } from './blog.controller';
 import { FilesService } from 'src/files/files.service';
 import { File } from 'src/files/entities/file.entity';
+<<<<<<< HEAD
 @Module({
   imports: [TypeOrmModule.forFeature([Blog, File])],
   providers: [BlogResolver, BlogService, FilesService],
   controllers: [],
+=======
+import { BlogController } from './blog.controller';
+@Module({
+  imports: [TypeOrmModule.forFeature([Blog, File])],
+  providers: [BlogResolver, BlogService, FilesService],
+  controllers: [BlogController],
+>>>>>>> origin/main
 })
 export class BlogModule {}
