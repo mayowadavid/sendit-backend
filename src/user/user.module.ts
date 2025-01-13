@@ -14,18 +14,11 @@ import { EarningsModule } from 'src/earnings/earnings.module';
 import { EarningsService } from 'src/earnings/earnings.service';
 import { Earning } from 'src/earnings/entities/earning.entity';
 import { FilesService } from 'src/files/files.service';
-<<<<<<< HEAD
 import { allPackage } from 'src/package/entities/package.entity';
 
 @Module({
   imports: [
     TypeOrmModule.forFeature([User, Profile, File, Earning, allPackage]),
-=======
-
-@Module({
-  imports: [
-    TypeOrmModule.forFeature([User, Profile, File, Earning]),
->>>>>>> origin/main
     ProfileModule,
     EarningsModule,
     PassportModule,

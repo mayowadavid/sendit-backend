@@ -47,14 +47,11 @@ export class UserResolver {
     return this.userService.update(updateUserInput.id, updateUserInput);
   }
 
-<<<<<<< HEAD
   @Mutation(() => User, { name: 'updatePassword' })
   updatePassword(@Args('updateUserInput') updateUserInput: UpdateUserInput) {
     return this.userService.updatePassword(updateUserInput.id, updateUserInput);
   }
 
-=======
->>>>>>> origin/main
   @Mutation(() => User, { name: 'removeUser' })
   removeUser(@Args('id') updateUserInput: UpdateUserInput) {
     return this.userService.remove(updateUserInput.id);

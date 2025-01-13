@@ -1,10 +1,7 @@
 import { CreatePackageInput } from './create-package.input';
 import { InputType, Field, PartialType } from '@nestjs/graphql';
 import { packageStatus } from '../entities/package.entity';
-<<<<<<< HEAD
 import { File } from '../../files/entities/file.entity';
-=======
->>>>>>> origin/main
 
 @InputType()
 export class UpdatePackageInput extends PartialType(CreatePackageInput) {
@@ -67,10 +64,7 @@ export class UpdatePackageInput extends PartialType(CreatePackageInput) {
 
   @Field({ description: 'package destination', nullable: true })
   destination: string;
-<<<<<<< HEAD
 
   @Field({ description: 'imagesId', nullable: true })
   imagesId: string;
-=======
->>>>>>> origin/main
 }

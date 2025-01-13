@@ -1,21 +1,7 @@
-<<<<<<< HEAD
-import { Resolver, Query, Mutation, Args } from '@nestjs/graphql';
+import { Resolver, Query, Mutation, Args, ObjectType, Field, } from '@nestjs/graphql';
 import { BlogService } from './blog.service';
 import { Blog, BlogPage } from './entities/blog.entity';
 import { CreateBlogInput, BlogPageInput } from './dto/create-blog.input';
-=======
-import {
-  Resolver,
-  Query,
-  Mutation,
-  Args,
-  ObjectType,
-  Field,
-} from '@nestjs/graphql';
-import { BlogService } from './blog.service';
-import { Blog } from './entities/blog.entity';
-import { CreateBlogInput } from './dto/create-blog.input';
->>>>>>> origin/main
 import { UpdateBlogInput } from './dto/update-blog.input';
 import { GqlAuthGuard } from 'src/user/gql-users.guard';
 import { UseGuards } from '@nestjs/common';
@@ -40,12 +26,12 @@ export class BlogResolver {
     return this.blogService.findAll();
   }
 
-<<<<<<< HEAD
   @Query(() => BlogPage, { name: 'allBlogByPage' })
   findAllBlogByPage(@Args('blogPageInput') blogPageInput: BlogPageInput) {
     const { page, limit } = blogPageInput;
     return this.blogService.findAllPaginated(page, limit);
-=======
+  }
+
   @Query(() => BlogPagePaginationResult, { name: 'allBlogPage' })
   async findAllBlogPage(
     @Args('pagination', { nullable: true }) createBlogInput: CreateBlogInput,
@@ -72,7 +58,6 @@ export class BlogResolver {
       posts,
       hasNextPage,
     };
->>>>>>> origin/main
   }
 
   @Query(() => [Blog], { name: 'findBlogByUser' })
@@ -89,15 +74,14 @@ export class BlogResolver {
     return this.blogService.findOne(id);
   }
 
-<<<<<<< HEAD
   @Query(() => Blog, { name: 'findBlogByName' })
   findBlogByName(@Args('name') name: string) {
     return this.blogService.findBlogByName(name);
-=======
+  }
+
   @Query(() => Blog, { name: 'findBlogBySlug' })
-  findBlogByName(@Args('name') slug: string) {
+  findBlogBySlug(@Args('name') slug: string) {
     return this.blogService.findBlogBySlug(slug);
->>>>>>> origin/main
   }
 
   @Mutation(() => Blog)
@@ -110,8 +94,6 @@ export class BlogResolver {
     return this.blogService.remove(id);
   }
 }
-<<<<<<< HEAD
-=======
 
 @ObjectType()
 export class BlogPostPaginationResult {
@@ -130,4 +112,3 @@ export class BlogPagePaginationResult {
   @Field(() => Boolean)
   hasNextPage: boolean;
 }
->>>>>>> origin/main

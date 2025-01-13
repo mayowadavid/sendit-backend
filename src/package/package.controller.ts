@@ -25,6 +25,6 @@ export class PackageController {
     @CurrentUser() user,
     @UploadedFiles() files: Express.Multer.File,
   ) {
-    return await this.PackageService.upload(files, request, response);
+    return await this.PackageService.upload(files, request, user, response);
   }
 }

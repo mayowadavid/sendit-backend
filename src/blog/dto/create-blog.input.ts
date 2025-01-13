@@ -18,15 +18,12 @@ export class CreateBlogInput {
   @Field({ description: 'blog slug', nullable: true })
   slug: string;
 
-<<<<<<< HEAD
-=======
   @Field(() => Int, { description: 'page', defaultValue: 1, nullable: true })
   page: number;
 
   @Field(() => Int, { description: 'page', defaultValue: 10, nullable: true })
   limit: number;
 
->>>>>>> origin/main
   @Field({ description: 'blog type', nullable: true })
   type: BlogType;
 
@@ -42,7 +39,6 @@ export class CreateBlogInput {
   @Field({ description: 'blog user id', nullable: true })
   userId: string;
 }
-<<<<<<< HEAD
 
 @InputType()
 export class BlogPageInput {
@@ -52,5 +48,3 @@ export class BlogPageInput {
   @Field(() => Int, { defaultValue: 10 })
   limit: number;
 }
-=======
->>>>>>> origin/main

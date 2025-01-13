@@ -9,15 +9,12 @@ export class UpdateCommentInput extends PartialType(CreateCommentInput) {
   @Field({ description: 'comment description', nullable: true })
   description: string;
 
-<<<<<<< HEAD
-=======
   @Field({ description: 'comment email', nullable: true })
   email: string;
 
   @Field({ description: 'comment name', nullable: true })
   name: string;
 
->>>>>>> origin/main
   @Field({ description: 'comment date', nullable: true })
   createdAt: string;
 

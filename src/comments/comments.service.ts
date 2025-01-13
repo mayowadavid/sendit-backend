@@ -18,23 +18,13 @@ export class CommentsService {
 
   findAll(): Promise<Comment[]> {
     return this.commentRepository.find({
-<<<<<<< HEAD
-      relations: ['blog'],
-=======
       relations: ['blog', 'child', 'child.child'],
->>>>>>> origin/main
     });
   }
 
   findOne(id: string): Promise<Comment> {
     return this.commentRepository.findOne({
       where: { id },
-<<<<<<< HEAD
-      relations: ['blog'],
-    });
-  }
-
-=======
       relations: ['blog', 'child', 'child.child'],
     });
   }
@@ -67,7 +57,6 @@ export class CommentsService {
     return { ...comment, child: nestedChild };
   }
 
->>>>>>> origin/main
   update(id: string, updateCommentInput: UpdateCommentInput): Promise<Comment> {
     const comment: Comment = this.commentRepository.create(updateCommentInput);
     comment.id = id;

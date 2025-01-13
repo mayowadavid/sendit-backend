@@ -16,12 +16,9 @@ export class UpdateUserInput extends PartialType(CreateUserInput) {
   @Field({ description: 'client password', nullable: true })
   password: string;
 
-<<<<<<< HEAD
   @Field({ description: 'client password', nullable: true })
   newPassword: string;
 
-=======
->>>>>>> origin/main
   @Field({ description: 'profile Id', nullable: true })
   profileId: string;
 
